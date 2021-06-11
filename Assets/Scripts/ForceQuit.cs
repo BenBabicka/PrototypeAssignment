@@ -10,8 +10,7 @@ public class ForceQuit : MonoBehaviour
     private void Awake()
     {
         controlls = new InputMaster();
-        controlls.Player.forceQuit.performed += ctx => quit = true;
-        controlls.Player.forceQuit.canceled += ctx => quit = false;
+
     }
     private void OnEnable()
     {

@@ -22,9 +22,16 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, player.position) < attackRange)
+        if (player.tag == "Player")
         {
-            nav.SetDestination(player.position);
+            if (Vector3.Distance(transform.position, player.position) < attackRange)
+            {
+                nav.SetDestination(player.position);
+            }
+            else
+            {
+                nav.SetDestination(core.position);
+            }
         }
         else
         {

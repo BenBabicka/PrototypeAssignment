@@ -43,10 +43,66 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""forceQuit"",
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b86920b-3ff9-4906-be69-8221110857e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""QuickAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""fb20cdf9-b70d-41de-976e-0105132bbd7a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""HeavyAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""14ec120b-2ae2-47d2-8388-4cab5a60501d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Scrollwheel"",
                     ""type"": ""Value"",
-                    ""id"": ""9aa2d1ea-f9c6-44b9-af50-703cddd7a9f6"",
+                    ""id"": ""e4a4c701-2cb1-4e51-b6ab-8e83db6ce3cf"",
                     ""expectedControlType"": """",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftShoulder"",
+                    ""type"": ""Button"",
+                    ""id"": ""dadb30ed-e897-492e-b85f-2760dd30ffb0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightShoulder"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d5e6b14-6a81-4791-8a9c-ae910fbcec20"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""EnableBuilding"",
+                    ""type"": ""Button"",
+                    ""id"": ""7de90c85-5f8e-426a-9f85-18491174f457"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a9ae402-665b-4f98-be3e-fbdabd265621"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -142,12 +198,144 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b97bf981-66fa-418a-9a99-b2f8b6610273"",
+                    ""id"": ""6f3674c2-bed4-4658-b56d-712b9f99e843"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;Console"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ee94b0e-8ab1-4c54-9244-cbc3370de8bb"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;PC"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15e4f2b9-9adb-47a0-a18e-e6d857ef23b0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;PC"",
+                    ""action"": ""QuickAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f602433b-76ff-4e7d-b3db-1f93e63aa872"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;Console"",
+                    ""action"": ""QuickAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2ef2697-16b0-4540-8724-d226c3bd33c7"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;PC"",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3426cebd-3f85-43eb-8d0c-76d491ff3131"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;Console"",
+                    ""action"": ""HeavyAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c041be9-4fcf-4a06-a227-c31a15a85e3b"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC;Controls"",
+                    ""action"": ""Scrollwheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b254c8d-ffef-415d-80fe-fb4d29be52cf"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;Console"",
+                    ""action"": ""LeftShoulder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ba9b180-45e6-403c-afce-81f59c261bf1"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;Console"",
+                    ""action"": ""RightShoulder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""037531b9-7c0c-4604-911b-0c404236f4c8"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""forceQuit"",
+                    ""groups"": ""Controls;PC"",
+                    ""action"": ""EnableBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3188432-3e8c-43a0-a701-98aff9b1aca0"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;Console"",
+                    ""action"": ""EnableBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbcd0704-7503-4083-a1f6-aadcc4da5a35"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;PC"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0306137-b9a7-4c86-98b0-1f703b163454"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;Console"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -210,7 +398,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_ControllerLook = m_Player.FindAction("ControllerLook", throwIfNotFound: true);
         m_Player_MouseLook = m_Player.FindAction("MouseLook", throwIfNotFound: true);
-        m_Player_forceQuit = m_Player.FindAction("forceQuit", throwIfNotFound: true);
+        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_QuickAttack = m_Player.FindAction("QuickAttack", throwIfNotFound: true);
+        m_Player_HeavyAttack = m_Player.FindAction("HeavyAttack", throwIfNotFound: true);
+        m_Player_Scrollwheel = m_Player.FindAction("Scrollwheel", throwIfNotFound: true);
+        m_Player_LeftShoulder = m_Player.FindAction("LeftShoulder", throwIfNotFound: true);
+        m_Player_RightShoulder = m_Player.FindAction("RightShoulder", throwIfNotFound: true);
+        m_Player_EnableBuilding = m_Player.FindAction("EnableBuilding", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -263,7 +458,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_ControllerLook;
     private readonly InputAction m_Player_MouseLook;
-    private readonly InputAction m_Player_forceQuit;
+    private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_QuickAttack;
+    private readonly InputAction m_Player_HeavyAttack;
+    private readonly InputAction m_Player_Scrollwheel;
+    private readonly InputAction m_Player_LeftShoulder;
+    private readonly InputAction m_Player_RightShoulder;
+    private readonly InputAction m_Player_EnableBuilding;
+    private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -271,7 +473,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @ControllerLook => m_Wrapper.m_Player_ControllerLook;
         public InputAction @MouseLook => m_Wrapper.m_Player_MouseLook;
-        public InputAction @forceQuit => m_Wrapper.m_Player_forceQuit;
+        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        public InputAction @QuickAttack => m_Wrapper.m_Player_QuickAttack;
+        public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
+        public InputAction @Scrollwheel => m_Wrapper.m_Player_Scrollwheel;
+        public InputAction @LeftShoulder => m_Wrapper.m_Player_LeftShoulder;
+        public InputAction @RightShoulder => m_Wrapper.m_Player_RightShoulder;
+        public InputAction @EnableBuilding => m_Wrapper.m_Player_EnableBuilding;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -290,9 +499,30 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @MouseLook.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseLook;
                 @MouseLook.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseLook;
                 @MouseLook.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseLook;
-                @forceQuit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnForceQuit;
-                @forceQuit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnForceQuit;
-                @forceQuit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnForceQuit;
+                @Sprint.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSprint;
+                @QuickAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuickAttack;
+                @QuickAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuickAttack;
+                @QuickAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuickAttack;
+                @HeavyAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
+                @Scrollwheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollwheel;
+                @Scrollwheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollwheel;
+                @Scrollwheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnScrollwheel;
+                @LeftShoulder.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftShoulder;
+                @LeftShoulder.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftShoulder;
+                @LeftShoulder.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeftShoulder;
+                @RightShoulder.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightShoulder;
+                @RightShoulder.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightShoulder;
+                @RightShoulder.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightShoulder;
+                @EnableBuilding.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableBuilding;
+                @EnableBuilding.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableBuilding;
+                @EnableBuilding.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableBuilding;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -306,9 +536,30 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @MouseLook.started += instance.OnMouseLook;
                 @MouseLook.performed += instance.OnMouseLook;
                 @MouseLook.canceled += instance.OnMouseLook;
-                @forceQuit.started += instance.OnForceQuit;
-                @forceQuit.performed += instance.OnForceQuit;
-                @forceQuit.canceled += instance.OnForceQuit;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
+                @QuickAttack.started += instance.OnQuickAttack;
+                @QuickAttack.performed += instance.OnQuickAttack;
+                @QuickAttack.canceled += instance.OnQuickAttack;
+                @HeavyAttack.started += instance.OnHeavyAttack;
+                @HeavyAttack.performed += instance.OnHeavyAttack;
+                @HeavyAttack.canceled += instance.OnHeavyAttack;
+                @Scrollwheel.started += instance.OnScrollwheel;
+                @Scrollwheel.performed += instance.OnScrollwheel;
+                @Scrollwheel.canceled += instance.OnScrollwheel;
+                @LeftShoulder.started += instance.OnLeftShoulder;
+                @LeftShoulder.performed += instance.OnLeftShoulder;
+                @LeftShoulder.canceled += instance.OnLeftShoulder;
+                @RightShoulder.started += instance.OnRightShoulder;
+                @RightShoulder.performed += instance.OnRightShoulder;
+                @RightShoulder.canceled += instance.OnRightShoulder;
+                @EnableBuilding.started += instance.OnEnableBuilding;
+                @EnableBuilding.performed += instance.OnEnableBuilding;
+                @EnableBuilding.canceled += instance.OnEnableBuilding;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -345,6 +596,13 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnControllerLook(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
-        void OnForceQuit(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
+        void OnQuickAttack(InputAction.CallbackContext context);
+        void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnScrollwheel(InputAction.CallbackContext context);
+        void OnLeftShoulder(InputAction.CallbackContext context);
+        void OnRightShoulder(InputAction.CallbackContext context);
+        void OnEnableBuilding(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

@@ -8,8 +8,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public InputMaster controlls;
     public GameObject playersCamera;
-    public float movementSpeed = 200f;
-
+    public Transform groundCheck;
+    public LayerMask ground;
+    public float walkSpeed = 120f;
+    public float sprintSpeed = 200f;
+    public float jumpForce;
     [Header("Console")]
     public float rotationDamping = 20f;
     public float rotationSpeed = 10f;
@@ -23,11 +26,19 @@ public class PlayerController : MonoBehaviour
     Vector2 controllerRoation;
     Vector2 mouseRoation;
 
+
+    bool sprinting;
     bool pc;
     bool controller;
+    float moveSpeed;
     float rotationX;
-    float controllerRotationX;
     float rotX;
+
+    Vector3 orginalCameraPosition;
+
+    bool jump;
+    bool canJump;
+    Transform wall;
     private void Awake()
     {
         controlls = new InputMaster();
@@ -50,6 +61,12 @@ public class PlayerController : MonoBehaviour
         controlls.Player.MouseLook.canceled += ctx => pc = false;
 
 
+        controlls.Player.Sprint.performed += ctx => sprinting = true;
+        controlls.Player.Sprint.canceled += ctx => sprinting = false;
+
+        controlls.Player.Jump.performed += ctx => jump = true;
+        controlls.Player.Jump.canceled += ctx => jump = false;
+
     }
 
     private void OnEnable()
@@ -61,10 +78,14 @@ public class PlayerController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        moveSpeed = walkSpeed;
+        orginalCameraPosition = playersCamera.transform.localPosition;
     }
     void FixedUpdate()
     {
-        if(Mathf.Abs(controllerRoation.x) < 0.125f)
+        HideWalls();
+
+        if (Mathf.Abs(controllerRoation.x) < 0.125f)
         {
             controllerRoation.x = 0;
         }
@@ -72,6 +93,23 @@ public class PlayerController : MonoBehaviour
         {
             controllerRoation.y = 0;
         }
+       
+        RaycastHit hit;
+        if(Physics.Raycast(groundCheck.transform.position, -groundCheck.up, out hit,.1f, ground))
+        {
+            canJump = true;
+        }
+        else
+        {
+            canJump = false;
+
+        }
+
+        if (jump && canJump)
+        {
+            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+        }
+
         //Players Rotation on a controller
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y + controllerRoation.x * rotationSpeed, 0f), Time.fixedDeltaTime * rotationDamping);
 
@@ -93,10 +131,20 @@ public class PlayerController : MonoBehaviour
         }
         
         //Players movement that is relative to the direction the player is facing
-        rb.AddRelativeForce(new Vector3(move.x, 0, move.y) * movementSpeed, ForceMode.Force);
+        rb.AddRelativeForce(new Vector3(move.x, 0, move.y) * moveSpeed, ForceMode.Force);
     }
     private void Update()
     {
+ 
+        if (sprinting)
+        {
+            moveSpeed = sprintSpeed;
+        }
+        else
+        {
+            moveSpeed = walkSpeed;
+        }
+
         //Players rotation on a mouse (needs to be in update because fixed update has jerky movement)
         if (pc)
         {
@@ -110,5 +158,46 @@ public class PlayerController : MonoBehaviour
             playersCamera.transform.eulerAngles = targetRotation;
         }
     }
+
+    void HideWalls()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, playersCamera.transform.position - transform.position, out hit, Mathf.Abs(orginalCameraPosition.z)))
+        {
+            Vector3 hitPosition = transform.InverseTransformPoint(hit.point);
+
+            if(wall)
+            {
+                if(wall != hit.transform)
+                {
+                    wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
+                }
+            }
+
+            if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "playerProjectile")
+            {
+                wall = hit.transform;
+                wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                playersCamera.transform.localPosition = new Vector3(orginalCameraPosition.x, orginalCameraPosition.y, hitPosition.z);
+                
+            } 
+        }
+        else
+        {
+            if (wall)
+            {
+                wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                wall = null;
+            }
+            playersCamera.transform.localPosition = orginalCameraPosition;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position, playersCamera.transform.position - transform.position);
+    }
+
 
 }
