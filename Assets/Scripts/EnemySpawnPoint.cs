@@ -8,7 +8,9 @@ public class EnemySpawnPoint : MonoBehaviour
     public GameObject enemy;
 
     public float amount;
-    float spawned;
+    
+    [HideInInspector]
+    public float spawned;
 
     public float spawnRate;
     float timer;
@@ -33,7 +35,8 @@ public class EnemySpawnPoint : MonoBehaviour
 
                 Vector3 spawnPos = new Vector3(xPos, transform.position.y, zPos);
 
-                Instantiate(enemy, spawnPos, Quaternion.identity);
+                GameObject go = Instantiate(enemy, spawnPos, Quaternion.identity) as GameObject;
+                FindObjectOfType<GameManager>().enemies.Add(go);
                 spawned++;
                 timer = 0;
             }

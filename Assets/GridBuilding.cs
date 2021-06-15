@@ -54,6 +54,9 @@ public class GridBuilding : MonoBehaviour
             buildingIconImage.sprite = towers[index].GetComponent<Building>().buildingIcon;
             buildingIconImage.transform.parent.gameObject.SetActive(true);
 
+            marker.GetComponent<GroundCheck>().canBePlacedOnTheFloor = towers[index].GetComponent<Building>().canBePlacedOnFloor;
+            marker.GetComponent<GroundCheck>().canBePlacedOnTheWall = towers[index].GetComponent<Building>().canBePlacedOnWall;
+
             Gamepad gp = InputSystem.GetDevice<Gamepad>();
             if (gp != null)
             {
@@ -97,8 +100,18 @@ public class GridBuilding : MonoBehaviour
                     if (m.leftButton.wasPressedThisFrame)
                     {
                         Debug.Log("leftClick");
-                        GameObject go = Instantiate(towers[index], marker.transform.position, marker.transform.rotation);
-                        go.GetComponent<Building>().Create(marker.GetComponent<GroundCheck>().wall);
+                        if(marker.GetComponent<GroundCheck>().wall == true && towers[index].GetComponent<Building>().canBePlacedOnWall)
+                        {
+                            GameObject go = Instantiate(towers[index], marker.transform.position, marker.transform.rotation);
+                            go.GetComponent<Building>().Create(marker.GetComponent<GroundCheck>().wall);
+                        }
+
+                        if (marker.GetComponent<GroundCheck>().floor == true && towers[index].GetComponent<Building>().canBePlacedOnFloor)
+                        {
+                            GameObject go = Instantiate(towers[index], marker.transform.position, marker.transform.rotation);
+                            go.GetComponent<Building>().Create(marker.GetComponent<GroundCheck>().wall);
+                        }
+
                     }
                 }
                 if (gp != null)
@@ -107,8 +120,17 @@ public class GridBuilding : MonoBehaviour
                     if (gp.buttonWest.wasPressedThisFrame)
                     {
                         Debug.Log("westbutton");
-                        GameObject go = Instantiate(towers[index], marker.transform.position, marker.transform.rotation);
-                        go.GetComponent<Building>().Create(marker.GetComponent<GroundCheck>().wall);
+                        if (marker.GetComponent<GroundCheck>().wall == true && towers[index].GetComponent<Building>().canBePlacedOnWall)
+                        {
+                            GameObject go = Instantiate(towers[index], marker.transform.position, marker.transform.rotation);
+                            go.GetComponent<Building>().Create(marker.GetComponent<GroundCheck>().wall);
+                        }
+
+                        if (marker.GetComponent<GroundCheck>().floor == true && towers[index].GetComponent<Building>().canBePlacedOnFloor)
+                        {
+                            GameObject go = Instantiate(towers[index], marker.transform.position, marker.transform.rotation);
+                            go.GetComponent<Building>().Create(marker.GetComponent<GroundCheck>().wall);
+                        }
 
                     }
                 }

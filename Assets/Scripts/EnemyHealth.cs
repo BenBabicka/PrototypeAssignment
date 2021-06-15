@@ -21,6 +21,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void Die()
     {
+        FindObjectOfType<GameManager>().enemies.Remove(gameObject);
         Destroy(gameObject);
     }
 }

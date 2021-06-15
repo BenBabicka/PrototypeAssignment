@@ -18,7 +18,7 @@ MonoBehaviour:
   heavyDamage: 0
   lightStamina: 4
   heavyStamina: 0
-  lightAttackTime: 2
+  lightAttackTime: 1
   heavyAttackTime: 0
   weaponType: 0
   projectile: {fileID: 8753163289653158820, guid: 31698a11513c59a4383fbf861cb07797, type: 3}

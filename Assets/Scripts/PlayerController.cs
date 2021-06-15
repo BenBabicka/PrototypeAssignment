@@ -76,8 +76,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+   
         moveSpeed = walkSpeed;
         orginalCameraPosition = playersCamera.transform.localPosition;
     }
@@ -170,15 +169,20 @@ public class PlayerController : MonoBehaviour
             {
                 if(wall != hit.transform)
                 {
-                    wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-
+                    if (wall.GetComponent<MeshRenderer>())
+                    {
+                        wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                    }
                 }
             }
 
-            if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "playerProjectile")
+            if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "playerProjectile" && hit.collider.gameObject.tag !="Building" &&hit.collider.gameObject.tag != "Enemy")
             {
                 wall = hit.transform;
-                wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                if (wall.GetComponent<MeshRenderer>())
+                {
+                    wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                }
                 playersCamera.transform.localPosition = new Vector3(orginalCameraPosition.x, orginalCameraPosition.y, hitPosition.z);
                 
             } 
@@ -187,7 +191,10 @@ public class PlayerController : MonoBehaviour
         {
             if (wall)
             {
-                wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                if (wall.GetComponent<MeshRenderer>())
+                {
+                    wall.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                }
                 wall = null;
             }
             playersCamera.transform.localPosition = orginalCameraPosition;

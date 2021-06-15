@@ -17,6 +17,10 @@ public class GroundCheck : MonoBehaviour
     public GameObject wallLook;
     public bool objectPlaced;
     public BoxCollider check;
+
+    public bool canBePlacedOnTheWall;
+    public bool canBePlacedOnTheFloor;
+
     void Update()
     {
         
@@ -25,32 +29,65 @@ public class GroundCheck : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(wallCheck.transform.position, wallCheck.up, out hit, 4))
         {
-            foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
+            if (canBePlacedOnTheFloor)
             {
-                item.material.color = canPlaceColour;
-            }
-            floorLook.SetActive(true);
-            wallLook.SetActive(false);
-            objectPlaced = false;
+                foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
+                {
+                    item.material.color = canPlaceColour;
+                }
+                floorLook.SetActive(true);
+                wallLook.SetActive(false);
+                objectPlaced = false;
 
-            floor = true;
-            wall = false;
-            canBuild = true;
+                floor = true;
+                wall = false;
+                canBuild = true;
+            }
+            else
+            {
+                foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
+                {
+                    item.material.color = canNotPlaceColour;
+             
+                }
+                floorLook.SetActive(true);
+                wallLook.SetActive(false);
+                objectPlaced = false;
+
+                floor = true;
+                wall = false;
+            }
         }
         else if (Physics.Raycast(wallCheck.transform.position, wallCheck.forward, out hit, 4))
         {
-            foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
+            if (canBePlacedOnTheWall)
             {
-                item.material.color = canPlaceColour;
+                foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
+                {
+                    item.material.color = canPlaceColour;
+                }
+                wall = true;
+                floor = false;
+                objectPlaced = false;
+
+                wallLook.SetActive(true);
+                floorLook.SetActive(false);
+
+                canBuild = true;
             }
-            wall = true;
-            floor = false;
-            objectPlaced = false;
+            else
+            {
+                foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
+                {
+                    item.material.color = canNotPlaceColour;
+                }
+                wall = true;
+                floor = false;
+                objectPlaced = false;
 
-            wallLook.SetActive(true);
-            floorLook.SetActive(false);
-
-            canBuild = true;
+                wallLook.SetActive(true);
+                floorLook.SetActive(false);
+            }
         }
         else
         {
