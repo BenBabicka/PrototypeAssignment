@@ -92,6 +92,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "EnableDestoryBuilding",
+                    "type": "Button",
+                    "id": "8f7b8d86-e655-4a1b-8485-b1bc2031753b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -323,6 +331,28 @@
                     "processors": "",
                     "groups": "Controls;Console",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "68463c7a-383b-4d27-93f0-e0e3ef23b059",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Console;Controls",
+                    "action": "EnableDestoryBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d693605-2b5c-4b3a-b289-20a7f812b440",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls;PC",
+                    "action": "EnableDestoryBuilding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

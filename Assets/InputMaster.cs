@@ -105,6 +105,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""EnableDestoryBuilding"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f7b8d86-e655-4a1b-8485-b1bc2031753b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -338,6 +346,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68463c7a-383b-4d27-93f0-e0e3ef23b059"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Console;Controls"",
+                    ""action"": ""EnableDestoryBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d693605-2b5c-4b3a-b289-20a7f812b440"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controls;PC"",
+                    ""action"": ""EnableDestoryBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -406,6 +436,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_RightShoulder = m_Player.FindAction("RightShoulder", throwIfNotFound: true);
         m_Player_EnableBuilding = m_Player.FindAction("EnableBuilding", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_EnableDestoryBuilding = m_Player.FindAction("EnableDestoryBuilding", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -466,6 +497,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_RightShoulder;
     private readonly InputAction m_Player_EnableBuilding;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_EnableDestoryBuilding;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -481,6 +513,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @RightShoulder => m_Wrapper.m_Player_RightShoulder;
         public InputAction @EnableBuilding => m_Wrapper.m_Player_EnableBuilding;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @EnableDestoryBuilding => m_Wrapper.m_Player_EnableDestoryBuilding;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -523,6 +556,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @EnableDestoryBuilding.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableDestoryBuilding;
+                @EnableDestoryBuilding.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableDestoryBuilding;
+                @EnableDestoryBuilding.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnableDestoryBuilding;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -560,6 +596,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @EnableDestoryBuilding.started += instance.OnEnableDestoryBuilding;
+                @EnableDestoryBuilding.performed += instance.OnEnableDestoryBuilding;
+                @EnableDestoryBuilding.canceled += instance.OnEnableDestoryBuilding;
             }
         }
     }
@@ -604,5 +643,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnRightShoulder(InputAction.CallbackContext context);
         void OnEnableBuilding(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnEnableDestoryBuilding(InputAction.CallbackContext context);
     }
 }

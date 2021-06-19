@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3071e399070dd5d488b4a98ef20717d8, type: 2}
+  - {fileID: 2100000, guid: 6970f19182e719c4f8338a8d365df72e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,6 +125,7 @@ Transform:
   m_Children:
   - {fileID: 124362304511071041}
   - {fileID: 124362303234744268}
+  - {fileID: 2993529290875843611}
   - {fileID: 7420799716228758394}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -143,12 +144,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorGameobject: {fileID: 124362304511071046}
   wallGameobject: {fileID: 124362303234744269}
-  buildingColour: {r: 0.6509434, g: 0.076762185, b: 0.5923995, a: 1}
+  costAmount: 150
+  buildingColour: {r: 1, g: 1, b: 1, a: 1}
   buildingIcon: {fileID: 21300000, guid: 01f0beaffc4b097408d49b3c66e662c2, type: 3}
-  attackRate: 10
-  damage: 40
+  attackRate: 2
+  damage: 2
+  range: 0
   canBePlacedOnFloor: 1
   canBePlacedOnWall: 1
+  check: {fileID: 8453958779561846084}
+  placedOnWall: 0
 --- !u!1 &124362304511071046
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +214,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3071e399070dd5d488b4a98ef20717d8, type: 2}
+  - {fileID: 2100000, guid: 6970f19182e719c4f8338a8d365df72e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -257,7 +262,7 @@ GameObject:
   - component: {fileID: 1976457058677441824}
   m_Layer: 2
   m_Name: Check
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -274,7 +279,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 124362304146813773}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6855744726661876732
 BoxCollider:
@@ -302,3 +307,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
+--- !u!1 &8453958779561846084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2993529290875843611}
+  m_Layer: 10
+  m_Name: DeletePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2993529290875843611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8453958779561846084}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 124362304146813773}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

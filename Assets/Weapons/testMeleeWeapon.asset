@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: melee
   discription: test
-  lightDamage: 2
-  heavyDamage: 4
+  lightDamage: 5
+  heavyDamage: 15
   lightStamina: 2
   heavyStamina: 4
   lightAttackTime: 0.5
   heavyAttackTime: 2
   weaponType: 0
   projectile: {fileID: 0}
-  range: 2
+  range: 3
