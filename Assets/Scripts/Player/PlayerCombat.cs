@@ -149,8 +149,9 @@ public class PlayerCombat : MonoBehaviour
             {
                 RightClick();
             }
-            timer += Time.deltaTime;
         }
+        timer += Time.deltaTime;
+
     }
 
 

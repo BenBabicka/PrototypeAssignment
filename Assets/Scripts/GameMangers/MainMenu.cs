@@ -15,16 +15,6 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    private void Update()
-    {
-        Gamepad gp = InputSystem.GetDevice<Gamepad>();
-        if(gp != null)
-        {
-            if(gp.buttonSouth.wasPressedThisFrame)
-            {
-                LoadScene();
-            }
-        }
-    }
+    
 }
 

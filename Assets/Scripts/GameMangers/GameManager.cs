@@ -11,12 +11,12 @@ public class GameManager : MonoBehaviour
     public GameObject player;
 
     public Transform playerResetPosition;
-    
-    [Space]
-    [Header ("Waves")]
-    [Space]
-    [Space]
 
+    [Space]
+    [Header("Waves")]
+    [Space]
+    [Space]
+    public float waveStartTime = 10f;
     public float fadeTime;
     public float stayUpTime;
     public Text waveText;
@@ -62,6 +62,9 @@ public class GameManager : MonoBehaviour
     public GameObject StartUI;
     bool startedGame;
     bool gameOver;
+    bool gameOverOnce;
+    bool startedNewWave;
+   public bool canPause;
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -77,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        canPause = true;
         goldAmount = 1000;
         player.SetActive(true);
         InGameUI.SetActive(true);
@@ -84,19 +88,18 @@ public class GameManager : MonoBehaviour
         deathCamera.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        NewWave();
-        startedGame = true;
+       Invoke( "NewWave", waveStartTime);
 
     }
 
     void NewWave()
     {
+
         if (!startNewWave)
         {
-            if(startedGame)
-            {
-                goldAmount += 200;
-            }
+          
+            startedGame = true;
+
             fade = true;
             waveText.text = "Wave" + "\n" + (wave + 1);
             wave++;
@@ -105,6 +108,7 @@ public class GameManager : MonoBehaviour
                 spawners.spawned = 0;
                 spawners.amount += 5;
             }
+            startedNewWave = false;
             startNewWave = true;
         }
     }
@@ -144,63 +148,27 @@ public class GameManager : MonoBehaviour
         #region Pause menu
         Gamepad gp = InputSystem.GetDevice<Gamepad>();
 
-        if (startedGame && !gameOver)
+        if (canPause && !gameOver)
         {
-            if (buttonIndex < 0)
-            {
-                buttonIndex = 1;
-            }
-            if (buttonIndex > 1)
-            {
-                buttonIndex = 0;
-            }
-
-
-            if (gp != null)
+           if (gp != null)
             {
                 if (gp.startButton.wasPressedThisFrame)
                 {
+                        FindObjectOfType<SelectedButton>().PauseMenu();
+                    
                     pauseMenu.SetActive(!pauseMenu.activeSelf);
-                }
-
-                if (gp.dpad.down.wasPressedThisFrame)
-                {
-                    buttonIndex += 1;
-                }
-                if (gp.dpad.up.wasPressedThisFrame)
-                {
-                    buttonIndex -= 1;
-                }
-
-                if (buttonIndex == 0)
-                {
-                    resumeText.color = selectedColour;
-                    quitText.color = normalColour;
-                    if (gp.buttonSouth.wasPressedThisFrame)
-                    {
-
-                        Resume();
-                    }
-                }
-                if (buttonIndex == 1)
-                {
-                    resumeText.color = normalColour;
-                    quitText.color = selectedColour;
-                    if (gp.buttonSouth.wasPressedThisFrame)
-                    {
-
-                        BackToMainMenu();
-                    }
-
-                }
+                }      
             }
-
+          
             Keyboard kb = InputSystem.GetDevice<Keyboard>();
             if (kb != null)
             {
                 if (kb.escapeKey.wasPressedThisFrame)
                 {
-                    pauseMenu.SetActive(!pauseMenu.activeSelf);
+                   
+                        FindObjectOfType<SelectedButton>().PauseMenu();
+                    
+                   pauseMenu.SetActive(!pauseMenu.activeSelf);
                 }
             }
 
@@ -248,23 +216,19 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        if (!startedGame)
-        {
-            if (gp != null)
-            {
-                if (gp.buttonSouth.wasPressedThisFrame)
-                {
-                    StartGame();
-                }
-            }
-        }
+       
 
         goldText.text = goldAmount.ToString();
         if (startedGame)
         {
             if (enemies.Count <= 0)
             {
-                NewWave();
+                if (!startedNewWave)
+                {
+                    Invoke("NewWave", waveStartTime);
+                    goldAmount += 200;
+                    startedNewWave = true;
+                }
             }
 
             else if (enemies.Count > 0)
@@ -293,6 +257,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (!gameOverOnce)
+        {
+            FindObjectOfType<SelectedButton>().GameOver();
+            gameOverOnce = true;
+        }
         gameOver = true;
         deathCamera.SetActive(true);
         InGameUI.SetActive(false);

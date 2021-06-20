@@ -7,13 +7,18 @@ public class Skill : MonoBehaviour
 {
     public int skillCost;
 
-
+    [HideInInspector]
     public SkillTreeManager skillTreeManager;
 
     public string gameObjectWithScript;
     public string scriptName;
     public string methodName;
-    public float amount;
+
+    public bool isBrought;
+    public List<Skill> skillsNeeded;
+
+    bool canBuy = true;
+
     void Start()
     {
         skillTreeManager = FindObjectOfType<SkillTreeManager>();
@@ -27,11 +32,33 @@ public class Skill : MonoBehaviour
 
     public void BuySkillPoint()
     {
-        if (skillTreeManager.skillPoints >= skillCost)
+        for (int i = 0; i < skillsNeeded.Count;)
         {
-            skillTreeManager.skillPoints -= skillCost;
-            GetComponent<Button>().interactable = false;
-            GameObject.Find(gameObjectWithScript).GetComponent(scriptName).BroadcastMessage(methodName);
+            if(skillsNeeded[i].isBrought)
+            {
+                if(i >= skillsNeeded.Count -1)
+                {
+                    canBuy = true;
+                }
+                Debug.Log("Skill has been purchased");
+                i++;
+            }
+            else
+            {
+                Debug.Log("Skill required are not purchased");
+                canBuy = false;
+                break;
+            }
+        }
+        if (canBuy)
+        {
+            if (skillTreeManager.skillPoints >= skillCost)
+            {
+                skillTreeManager.skillPoints -= skillCost;
+                GetComponent<Button>().interactable = false;
+                isBrought = true;
+                GameObject.Find(gameObjectWithScript).GetComponent(scriptName).BroadcastMessage(methodName);
+            }
         }
     }
 

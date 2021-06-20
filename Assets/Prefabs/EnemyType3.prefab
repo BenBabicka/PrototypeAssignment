@@ -169,8 +169,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 40
-  goldDropAmount: 0
   healthBar: {fileID: 4517688954104405607}
+  goldDropAmount: 0
+  minGoldAmount: 0
+  maxGoldAmount: 20
+  xp: 0
+  minXpAmount: 5
+  maxXpAmount: 40
 --- !u!114 &1711010596149273128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
