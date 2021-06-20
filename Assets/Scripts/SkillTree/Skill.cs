@@ -19,45 +19,51 @@ public class Skill : MonoBehaviour
 
     bool canBuy = true;
 
+    public Color isBoughtColour;
+
     void Start()
     {
         skillTreeManager = FindObjectOfType<SkillTreeManager>();
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(isBrought)
+        {
+            gameObject.GetComponent<Image>().color = isBoughtColour;
+        }
     }
+
 
     public void BuySkillPoint()
     {
-        for (int i = 0; i < skillsNeeded.Count;)
+        if (!isBrought)
         {
-            if(skillsNeeded[i].isBrought)
+            for (int i = 0; i < skillsNeeded.Count;)
             {
-                if(i >= skillsNeeded.Count -1)
+                if (skillsNeeded[i].isBrought)
                 {
-                    canBuy = true;
+                    if (i >= skillsNeeded.Count - 1)
+                    {
+                        canBuy = true;
+                    }
+                    Debug.Log("Skill has been purchased");
+                    i++;
                 }
-                Debug.Log("Skill has been purchased");
-                i++;
+                else
+                {
+                    Debug.Log("Skill required are not purchased");
+                    canBuy = false;
+                    break;
+                }
             }
-            else
+            if (canBuy)
             {
-                Debug.Log("Skill required are not purchased");
-                canBuy = false;
-                break;
-            }
-        }
-        if (canBuy)
-        {
-            if (skillTreeManager.skillPoints >= skillCost)
-            {
-                skillTreeManager.skillPoints -= skillCost;
-                GetComponent<Button>().interactable = false;
-                isBrought = true;
-                GameObject.Find(gameObjectWithScript).GetComponent(scriptName).BroadcastMessage(methodName);
+                if (skillTreeManager.skillPoints >= skillCost)
+                {
+                    skillTreeManager.skillPoints -= skillCost;
+                    isBrought = true;
+                    GameObject.Find(gameObjectWithScript).GetComponent(scriptName).BroadcastMessage(methodName);
+                }
             }
         }
     }

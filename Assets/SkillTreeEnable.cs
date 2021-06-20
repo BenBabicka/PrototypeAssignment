@@ -27,7 +27,6 @@ public class SkillTreeEnable : MonoBehaviour
             FindObjectOfType<GameManager>().canPause = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-
             foreach (var script in scriptsToDisable)
             {
                 script.enabled = false;
@@ -38,6 +37,9 @@ public class SkillTreeEnable : MonoBehaviour
                 {
                     FindObjectOfType<GameManager>().canPause = true;
                     skillTreeMenu.SetActive(false);
+                    FindObjectOfType<DeleteBuilding>().deleteMode = false;
+                    FindObjectOfType<PlayerCombat>().destoryMode = false;
+
                 }
             }
             if (kb != null)
@@ -46,6 +48,9 @@ public class SkillTreeEnable : MonoBehaviour
                 {
                     FindObjectOfType<GameManager>().canPause = true;
                     skillTreeMenu.SetActive(false);
+                    FindObjectOfType<DeleteBuilding>().deleteMode = false;
+                    FindObjectOfType<PlayerCombat>().destoryMode = false;
+
                 }
             }
             pauseMenu.SetActive(false);

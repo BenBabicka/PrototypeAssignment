@@ -55,7 +55,10 @@ public class Turret : MonoBehaviour
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         ClosestEnemy();
-        if(target)
+        attackRate = gameObject.GetComponentInParent<Building>().attackRate;
+        damage = gameObject.GetComponentInParent<Building>().damage;
+        rangeDistance = gameObject.GetComponentInParent<Building>().range;
+        if (target)
         {
             if (Vector3.Distance(transform.position, target.position) < rangeDistance)
             {

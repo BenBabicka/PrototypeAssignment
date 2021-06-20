@@ -20,6 +20,6 @@ MonoBehaviour:
   heavyStamina: 0
   lightAttackTime: 1
   heavyAttackTime: 0
-  weaponType: 0
+  weaponType: 2
   projectile: {fileID: 8753163289653158820, guid: 31698a11513c59a4383fbf861cb07797, type: 3}
   range: 20
