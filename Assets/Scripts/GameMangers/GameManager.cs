@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
 
     public PlayerController playerController;
 
-    int buttonIndex;
 
     public Text resumeText;
     public Text quitText;
@@ -196,7 +195,6 @@ public class GameManager : MonoBehaviour
                 {
                     playerController.enabled = true;
                 }
-                buttonIndex = 0;
                 Time.timeScale = 1;
             }
         }
