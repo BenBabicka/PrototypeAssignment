@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyCombat : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class EnemyCombat : MonoBehaviour
     [HideInInspector]
     public GameObject core;
     float timer;
+
+    public Transform target;
     void Start()
     {
         if (gameObject.GetComponent<EnemyMovement>().player)
@@ -25,20 +28,27 @@ public class EnemyCombat : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+        if (target == player)
         {
-            if (timer > attackRate)
+            if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
             {
-                player.GetComponent<PlayerHealth>().TakeDamage(damage);
-                timer = 0;
+                if (timer > attackRate)
+                {
+                    player.GetComponent<PlayerHealth>().TakeDamage(damage);
+                    timer = 0;
+                }
             }
         }
-        if (Vector3.Distance(transform.position, core.transform.position) < attackRange || Vector3.Distance(transform.position, core.transform.position) < 6)
+        else
         {
-            if (timer > attackRate)
+
+            if (Vector3.Distance(transform.position, core.transform.position) < attackRange || Vector3.Distance(transform.position, core.transform.position) < 6)
             {
-                core.GetComponent<CoreHealth>().TakeDamage(damage);
-                timer = 0;
+                if (timer > attackRate)
+                {
+                    core.GetComponent<CoreHealth>().TakeDamage(damage);
+                    timer = 0;
+                }
             }
         }
     }

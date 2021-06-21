@@ -64,8 +64,13 @@ public class GameManager : MonoBehaviour
     bool gameOverOnce;
     bool startedNewWave;
    public bool canPause;
+
+    EnemySpawnPoint[] spawners;
+    int bossRound;
+
     void Start()
     {
+        spawners = FindObjectsOfType<EnemySpawnPoint>();
         pauseMenu.SetActive(false);
         StartUI.SetActive(true);
         InGameUI.SetActive(false);
@@ -81,6 +86,7 @@ public class GameManager : MonoBehaviour
     {
         canPause = true;
         goldAmount = 1000;
+        bossRound++;
         player.SetActive(true);
         InGameUI.SetActive(true);
         StartUI.SetActive(false);
@@ -90,27 +96,55 @@ public class GameManager : MonoBehaviour
        Invoke( "NewWave", waveStartTime);
 
     }
-
+  
     void NewWave()
     {
-
-        if (!startNewWave)
+        if (bossRound >= 5)
         {
-          
-            startedGame = true;
-
-            fade = true;
-            waveText.text = "Wave" + "\n" + (wave + 1);
-            wave++;
-            foreach (EnemySpawnPoint spawners in FindObjectsOfType<EnemySpawnPoint>())
+            if (!startNewWave)
             {
-                spawners.spawned = 0;
-                spawners.amount += 5;
+                startedGame = true;
+
+                fade = true;
+                waveText.text = "Wave" + "\n" + (wave + 1) + "\n" + "Boss Wave";
+                wave++;
+                foreach (EnemySpawnPoint spawners in FindObjectsOfType<EnemySpawnPoint>())
+                {
+                    spawners.spawned = 0;
+                    spawners.bossRound = true;
+                }
+                spawners[Random.Range(0, spawners.Length)].bossSpawner = true;
+                startedNewWave = false;
+                startNewWave = true;
+                bossRound = 0;
+
             }
-            startedNewWave = false;
-            startNewWave = true;
+        }
+         if (bossRound < 5)
+        {
+            if (!startNewWave)
+            {
+                startedGame = true;
+
+                fade = true;
+                waveText.text = "Wave" + "\n" + (wave + 1);
+                wave++;
+                foreach (EnemySpawnPoint spawners in FindObjectsOfType<EnemySpawnPoint>())
+                {
+                    spawners.spawned = 0;
+                    spawners.amount += 5;
+                    spawners.bossedSpawned = false;
+                    spawners.bossRound = false;
+                    spawners.bossSpawner = false;
+                }
+                startedNewWave = false;
+                bossRound++;
+                startNewWave = true;
+
+            }
         }
     }
+
 
     void Update()
     {
@@ -149,25 +183,27 @@ public class GameManager : MonoBehaviour
 
         if (canPause && !gameOver)
         {
-           if (gp != null)
+            if (gp != null)
             {
                 if (gp.startButton.wasPressedThisFrame)
                 {
-                        FindObjectOfType<SelectedButton>().PauseMenu();
-                    
+                    FindObjectOfType<SelectedButton>().PauseMenu();
+
                     pauseMenu.SetActive(!pauseMenu.activeSelf);
-                }      
+                }
             }
-          
+
             Keyboard kb = InputSystem.GetDevice<Keyboard>();
             if (kb != null)
             {
+
+
                 if (kb.escapeKey.wasPressedThisFrame)
                 {
-                   
-                        FindObjectOfType<SelectedButton>().PauseMenu();
-                    
-                   pauseMenu.SetActive(!pauseMenu.activeSelf);
+
+                    FindObjectOfType<SelectedButton>().PauseMenu();
+
+                    pauseMenu.SetActive(!pauseMenu.activeSelf);
                 }
             }
 
@@ -214,7 +250,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
-       
+
 
         goldText.text = goldAmount.ToString();
         if (startedGame)
@@ -224,10 +260,12 @@ public class GameManager : MonoBehaviour
                 if (!startedNewWave)
                 {
                     Invoke("NewWave", waveStartTime);
+
                     goldAmount += 200;
                     startedNewWave = true;
                 }
             }
+
 
             else if (enemies.Count > 0)
             {
@@ -235,6 +273,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    
 
     public void Resume()
     {

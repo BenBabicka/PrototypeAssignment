@@ -27,17 +27,34 @@ public class EnemyMovement : MonoBehaviour
     {
         if (player.tag == "Player")
         {
-            if (Vector3.Distance(transform.position, player.position) < attackRange)
+            RaycastHit hit;
+            Debug.DrawRay(transform.position, player.position - transform.position);
+            if (Physics.Raycast(transform.position, player.position - transform.position, out hit, attackRange))
             {
-                nav.SetDestination(player.position);
+                if (hit.transform.tag == "Player")
+                {
+
+                    gameObject.GetComponent<EnemyCombat>().target = player;
+                    nav.SetDestination(player.position);
+                }
+                else
+                {
+                    gameObject.GetComponent<EnemyCombat>().target = null;
+
+                    nav.SetDestination(core.position);
+                }
             }
             else
             {
+                gameObject.GetComponent<EnemyCombat>().target = null;
+
                 nav.SetDestination(core.position);
             }
         }
         else
         {
+            gameObject.GetComponent<EnemyCombat>().target = null;
+
             nav.SetDestination(core.position);
         }
     }

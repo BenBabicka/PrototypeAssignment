@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     public int playerLevel;
     public int xp = 0;
     public int amountOfXpNeed = 1000;
-
+    public float increaseAmount;
     [Header("UI")]
     public Slider xpBar;
     public Text xpText;
@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
     void LevelUp()
     {
         xp = 0;
-        float nextXpLevel = (float)amountOfXpNeed * 1.2f;
+        float nextXpLevel = (float)amountOfXpNeed * increaseAmount;
         amountOfXpNeed = (int)nextXpLevel;
         FindObjectOfType<SkillTreeManager>().skillPoints++;
         playerLevel++;
