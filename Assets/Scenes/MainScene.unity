@@ -816,41 +816,45 @@ MonoBehaviour:
     Left
     click = attack / place building
 
-    Right click = heavy attack / aim
+    Right click = heavy attack
 
-    Q
-    = enable building
+    Q = enable
+    building
 
-    scrollwheel = switch weapons
+    E = destory buildings
 
-    space = jump
+    scrollwheel = switch weapons / buildings
+
+    space
+    = jump
 
 
     (Controller)
 
 
-    Left
-    joystick = Movement
+    Left joystick = Movement
 
-    Right joystick = look around
+    Right joystick
+    = look around
 
     South button = jump
 
-    Left
-    trigger = heavy attack / aim
+    Left trigger = heavy attack
 
-    Right trigger =  attack
+    Right
+    trigger =  attack
 
-    Left and right
-    shoulder = switch weapons
+    Left and right shoulder = switch weapons
 
-    West button = place building
+    West button
+    = place building
 
-    North button
-    = enable building
+    North button = enable building
 
+    East button = destory
+    buildings
 
-    South button to start'
+'
 --- !u!222 &1906456611
 CanvasRenderer:
   m_ObjectHideFlags: 0

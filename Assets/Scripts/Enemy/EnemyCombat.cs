@@ -28,7 +28,7 @@ public class EnemyCombat : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (target == player)
+        if (target)
         {
             if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
             {

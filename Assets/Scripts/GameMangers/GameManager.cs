@@ -37,11 +37,9 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
 
 
-    public Text resumeText;
-    public Text quitText;
+ 
 
-    public Color selectedColour = Color.gray;
-    public Color normalColour = Color.white;
+    public bool canPause;
 
     [Space]
     [Header("Gold")]
@@ -63,7 +61,6 @@ public class GameManager : MonoBehaviour
     bool gameOver;
     bool gameOverOnce;
     bool startedNewWave;
-   public bool canPause;
 
     EnemySpawnPoint[] spawners;
     int bossRound;
@@ -235,21 +232,7 @@ public class GameManager : MonoBehaviour
             }
         }
         #endregion
-        if (gameOver)
-        {
-            if (gp != null)
-            {
-                if (gp.buttonEast.wasPressedThisFrame)
-                {
-                    BackToMainMenu();
-                }
-                if (gp.buttonSouth.wasPressedThisFrame)
-                {
-                    Restart();
-                }
-            }
-
-        }
+       
 
 
         goldText.text = goldAmount.ToString();
@@ -277,8 +260,6 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
-        resumeText.color = normalColour;
-        quitText.color = normalColour;
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
 
