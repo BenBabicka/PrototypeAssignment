@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
+    //player stuff
     public GameObject player;
 
     public Transform playerResetPosition;
-
+    //waves
     [Space]
     [Header("Waves")]
     [Space]
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     bool startNewWave;
     float timer;
     int wave;
-
+    //pause
     [Space]
     [Header("Pause Menu")]
     [Space]
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
  
 
     public bool canPause;
-
+    //gold
     [Space]
     [Header("Gold")]
     [Space]
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     public int goldAmount = 1000;
     public Text goldText;
 
-
+    //games
     [Space]
     [Header("Game States")]
     [Space]
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
     int bossRound;
 
     void Start()
-    {
+    {//set stats
         spawners = FindObjectsOfType<EnemySpawnPoint>();
         pauseMenu.SetActive(false);
         StartUI.SetActive(true);
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartGame()
-    {
+    {//starting the game
         canPause = true;
         goldAmount = 1000;
         bossRound++;
@@ -96,10 +96,11 @@ public class GameManager : MonoBehaviour
   
     void NewWave()
     {
+        //its a whole new world
         if (bossRound >= 5)
         {
             if (!startNewWave)
-            {
+            {//boss round
                 startedGame = true;
 
                 fade = true;
@@ -121,6 +122,7 @@ public class GameManager : MonoBehaviour
         {
             if (!startNewWave)
             {
+                //start the normal waves
                 startedGame = true;
 
                 fade = true;
@@ -129,6 +131,7 @@ public class GameManager : MonoBehaviour
                 foreach (EnemySpawnPoint spawners in FindObjectsOfType<EnemySpawnPoint>())
                 {
                     spawners.spawned = 0;
+                    //each round more enemys
                     spawners.amount += 5;
                     spawners.bossedSpawned = false;
                     spawners.bossRound = false;
@@ -146,6 +149,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         #region Wave text fade
+        //cool fade bruh
         waveText.color = fadeColour;
         if (fadeColour.a >= 1)
         {
@@ -176,6 +180,7 @@ public class GameManager : MonoBehaviour
         }
         #endregion
         #region Pause menu
+        //stop hammer time
         Gamepad gp = InputSystem.GetDevice<Gamepad>();
 
         if (canPause && !gameOver)
@@ -203,6 +208,8 @@ public class GameManager : MonoBehaviour
                     pauseMenu.SetActive(!pauseMenu.activeSelf);
                 }
             }
+
+            //pause the game
 
             if (pauseMenu.activeSelf == true)
             {
@@ -232,16 +239,16 @@ public class GameManager : MonoBehaviour
             }
         }
         #endregion
-       
 
 
+        //set the gold text to the gold amount
         goldText.text = goldAmount.ToString();
         if (startedGame)
         {
             if (enemies.Count <= 0)
             {
                 if (!startedNewWave)
-                {
+                {//start a new wave when no enemy is alive (f)
                     Invoke("NewWave", waveStartTime);
 
                     goldAmount += 200;
@@ -257,14 +264,14 @@ public class GameManager : MonoBehaviour
         }
     }
     
-
+    //resume
     public void Resume()
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
 
     }
-
+    //bye level
     public void BackToMainMenu()
     {
         Time.timeScale = 1;
@@ -272,7 +279,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         SceneManager.LoadScene(0);
     }
-
+    //ouch
     public void GameOver()
     {
         if (!gameOverOnce)
@@ -289,13 +296,13 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         gameOverUI.SetActive(true);
     }
-
+    //try again
     public void Restart()
     {
         SceneManager.LoadScene(1);
     }
 
-
+    //ahhhhhhhh oh im ok
     public void ResetPlayerPosition()
     {
         player.transform.position = playerResetPosition.position;

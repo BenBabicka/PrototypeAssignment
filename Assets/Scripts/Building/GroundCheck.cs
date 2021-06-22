@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
-
+    //this is a interseting hack of a job
     public Transform wallCheck;
 
     public bool canBuild;
-
+    //stats 
     public Color canPlaceColour;
     public Color canNotPlaceColour;
     public bool wall;
     public bool floor;
+
+    //more stuff
     public GameObject floorLook;
     public GameObject wallLook;
     public bool objectPlaced;
@@ -26,14 +28,17 @@ public class GroundCheck : MonoBehaviour
 
     void Update()
     {
+        //find how much the building is
         goldAmount = FindObjectOfType<GameManager>().goldAmount;
 
 
         RaycastHit hit;
         if (Physics.Raycast(wallCheck.transform.position, wallCheck.up, out hit, 4))////////////////////////////////////
         {
+            //make sure building is enough
             if (goldAmount >= buildingCost)
             {
+                //make the look go to the floor and be blue
                 if (canBePlacedOnTheFloor)
                 {
                     foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
@@ -48,7 +53,7 @@ public class GroundCheck : MonoBehaviour
                     wall = false;
                     canBuild = true;
                 }
-                else
+                else//make the looks go on floor and be red and no place
                 {
                     foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
                     {
@@ -63,7 +68,7 @@ public class GroundCheck : MonoBehaviour
                     wall = false;
                 }
             }
-        else
+        else//no can doo doo
             {
                 foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
                 {
@@ -82,7 +87,7 @@ public class GroundCheck : MonoBehaviour
         {
             if (goldAmount >= buildingCost)
             {
-                if (canBePlacedOnTheWall)
+                if (canBePlacedOnTheWall)// same as floor but wall insted
                 {
                     foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
                     {
@@ -97,7 +102,7 @@ public class GroundCheck : MonoBehaviour
 
                     canBuild = true;
                 }
-                else
+                else//can't place it there my lord
                 {
                     foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
                     {
@@ -111,7 +116,7 @@ public class GroundCheck : MonoBehaviour
                     floorLook.SetActive(false);
                 }
             }
-            else
+            else//your not allowed 
             {
                 foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
                 {
@@ -125,7 +130,7 @@ public class GroundCheck : MonoBehaviour
                 wallLook.SetActive(true);
                 floorLook.SetActive(false);
             }
-        }
+        }//nothing
         else
         {
             foreach (MeshRenderer item in gameObject.GetComponentsInChildren<MeshRenderer>())
@@ -139,6 +144,7 @@ public class GroundCheck : MonoBehaviour
             wall = false;
             floor = false;
         }
+        //check if something is there if so no can not do
         Collider[] boxs = Physics.OverlapBox(check.transform.position, check.bounds.size / 2);
         foreach (var col in boxs)
         {

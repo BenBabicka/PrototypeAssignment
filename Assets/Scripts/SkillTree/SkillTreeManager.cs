@@ -5,19 +5,15 @@ using UnityEngine.UI;
 
 public class SkillTreeManager : MonoBehaviour
 {
-
+    //not really a manager but ok
+    //how man points
     public int skillPoints;
-
+    //the ui
     public GameObject skillPointsUI;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        //set the ui
         if(skillPoints > 0)
         {
             skillPointsUI.SetActive(true);
