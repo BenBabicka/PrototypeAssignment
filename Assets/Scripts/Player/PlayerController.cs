@@ -4,45 +4,63 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    /// <summary>
+    /// PUBLIC
+    /// </summary>
 
+    //Players rigidbody
     private Rigidbody rb;
+    //The controls using the input system
     public InputMaster controlls;
+    
     public GameObject playersCamera;
+    //Transform of the groundcheck and what the ground layer is
     public Transform groundCheck;
     public LayerMask ground;
+    
+    //Base movement values
     public float walkSpeed = 120f;
     public float sprintSpeed = 200f;
     public float jumpForce;
+    //Console roation
     [Header("Console")]
     public float rotationDamping = 20f;
     public float rotationSpeed = 10f;
     public float rotationY = 5f;
 
+
+    //Pc rotation
     [Header("PC")]
 
     public float mouseSensitivityY = 0.8f;
     public float mouseSensitivityX = 0.8f;
     public float clamp = 10;
 
-    Vector2 move;
-    Vector2 controllerRoation;
-    Vector2 mouseRoation;
+    /// <summary>
+    /// PRIVATE
+    /// </summary>
 
+    //Move and rotation directions
+    private Vector2 move;
+    private Vector2 controllerRoation;
+    private Vector2 mouseRoation;
+    private Vector3 orginalCameraPosition;
 
-    bool sprinting;
-    bool pc;
-    bool controller;
-    float moveSpeed;
-    float rotationX;
-    float rotX;
-
-    Vector3 orginalCameraPosition;
-
-    bool jump;
-    bool canJump;
+    private bool jump;
+    private bool canJump;
+    private bool sprinting;
+    private bool pc;
+    private bool controller;
+    private float moveSpeed;
+    private float rotationX;
+    private float rotX;
+  
     Transform wall;
+
+
     private void Awake()
     {
+        //Sets up the players controls
         controlls = new InputMaster();
 
         controlls.Player.Movement.performed += ctx => move = ctx.ReadValue<Vector2>();
@@ -73,6 +91,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        //enables the controls
         controlls.Enable();
     }
     void Start()
@@ -85,7 +104,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         HideWalls();
-
+        //Makes the play not rotate if the joystick isn't pushed enough
         if (Mathf.Abs(controllerRoation.x) < 0.125f)
         {
             controllerRoation.x = 0;
@@ -95,6 +114,7 @@ public class PlayerController : MonoBehaviour
             controllerRoation.y = 0;
         }
        
+        //Checking if the ground is under the player
         RaycastHit hit;
         if(Physics.Raycast(groundCheck.transform.position, -groundCheck.up, out hit,.1f, ground))
         {
@@ -106,19 +126,20 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        //Makes the player jump using a force
         if (jump && canJump)
         {
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
 
-        //Players Rotation on a controller
+        //Players Y Rotation on a controller
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y + controllerRoation.x * rotationSpeed, 0f), Time.fixedDeltaTime * rotationDamping);
 
-
+        //Players x roation on controller
         if (controller)
         {
             rotX = playersCamera.transform.localRotation.eulerAngles.x + -controllerRoation.y * rotationY;
-
+            //Clamps the rotation
             if (playersCamera.transform.localRotation.eulerAngles.x > 360 - clamp)
             {
                 rotX = Mathf.Clamp(rotX, 360.25f - clamp, 370);
@@ -127,7 +148,7 @@ public class PlayerController : MonoBehaviour
             {
                 rotX = Mathf.Clamp(rotX, -clamp, clamp);
             }
-
+            //makes the rotation smooth and useable
             playersCamera.transform.localRotation = Quaternion.Slerp(playersCamera.transform.localRotation, Quaternion.Euler(rotX, 0, 0), Time.deltaTime * rotationDamping);
         }
         
@@ -136,7 +157,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
- 
+        //Sprint mechainic
         if (sprinting)
         {
             moveSpeed = sprintSpeed;
@@ -152,6 +173,7 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(Vector3.up, (mouseRoation.x * mouseSensitivityY));
 
             rotationX -= mouseRoation.y * mouseSensitivityY;
+            //Clampo
             rotationX = Mathf.Clamp(rotationX, -clamp, clamp);
 
             Vector3 targetRotation = transform.eulerAngles;
